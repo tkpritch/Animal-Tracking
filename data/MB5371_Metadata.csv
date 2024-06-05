@@ -1,0 +1,5 @@
+transmitter_id,transmitter_deployment_id,measurement_type,measurement_value,measurement_unit,Sex
+A69-9001-64011,255958817,TOTAL LENGTH,160,cm,Male
+A69-9001-63963,218303525,TOTAL LENGTH,340,cm,Female
+A69-9001-63851,222579864,TOTAL LENGTH,207,cm,Female
+A69-9001-63850,222579853,TOTAL LENGTH,300,cm,Female
