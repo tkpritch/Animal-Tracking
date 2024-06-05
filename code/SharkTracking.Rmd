@@ -51,11 +51,16 @@ library(tidyverse)
 ```
 
 R-script code from Adam
-```{r}
-MB5371_Meta <- read.csv("MB5371_Metadata.csv", header = TRUE)
-MB5371_Detections <- read.csv("MB5371_Detections.csv", header = TRUE)
-MB5371_Receivers <- read.csv("MB5371_Receivers.csv", header = TRUE)
 
+Import data
+```{r}
+MB5371_Meta <- read.csv("../data/MB5371_Metadata.csv", header = TRUE)
+MB5371_Detections <- read.csv("../data/MB5371_Detections.csv", header = TRUE)
+MB5371_Receivers <- read.csv("../data/MB5371_Receivers.csv", header = TRUE)
+```
+
+
+```{r}
 ### Let's adjust the date time column format to a better one to work with and change time zone to Australia as IMOS outputs in UTC. 
 ### Also, make a new column that only has the date. IMOS output only gives a combined Date - Time column but for many analyses
 ### we are not interested in the time
@@ -243,15 +248,21 @@ kud <- kernelUD(Scalloped_Detections[,1], h="href")
 image(kud)
 
 ### What could cause such a change?
+```
 
 
-
-#################################### Lets switch to a data set with lots of tiger sharks
-
-MB5371_Tiger_Sharks <- read.csv("MB5371_Tiger_Sharks.csv", header = TRUE)
-MB5371_Tiger_Sharks_Meta <- read.csv("MB5371_Metadata_Tigers.csv", header = TRUE)
+#______________________________________________________________________________
 
 
+Switch to a dataset with lots of tiger sharks.
+Import data
+```{r}
+MB5371_Tiger_Sharks <- read.csv("../data/MB5371_Tiger_Sharks.csv", header = TRUE)
+MB5371_Tiger_Sharks_Meta <- read.csv("../data/MB5371_Metadata_Tigers.csv", header = TRUE)
+```
+
+Organize and clean up data
+```{r}
 MB5371_Tiger_Sharks$detection_datetime <- as.POSIXct(MB5371_Tiger_Sharks$detection_datetime,format="%d/%m/%Y %H:%M",tz="UTC")
 
 MB5371_Tiger_Sharks$detection_datetime <- as.POSIXct(MB5371_Tiger_Sharks$detection_datetime, format = "%Y-%m-%d %H:%M",tz="UTC")
@@ -284,14 +295,24 @@ MB5371_Tiger_Sharks_Day <- MB5371_Tiger_Sharks_Day %>% dplyr::group_by(Date) %>%
 ### Rename column
 
 MB5371_Tiger_Sharks_Day <- dplyr::rename(MB5371_Tiger_Sharks_Day, Count = `n_distinct(transmitter_id)`)
+```
 
-### So now we have a data frame with daily tiger shark counts in the Whitsundays.
+
+#_____________________________________________________________________________
+
+
+Now, import data frame with daily tiger shark counts in the Whitsundays
+```{r}
+MB5371_Whitsundays_Temp <- read.csv("../data/MB5371_Whitsundays_Temp.csv", header = TRUE)
+```
+
+Format data
+```{r}
 ### To look at potential drivers of numbers we can look at temperature. Lets combine a temperature dataframe for daily values
 ### in °C with our tigersharks counts and plot it. Sadly, the tiger shark count dataframe may not have all days in it as sometimes,
 ### There were 0 tiger sharks, those days will be missing. However, the temperature dataframe is continous. With some clever data wrangling,
 ### We can combine the two and fill the gaps of tiger shark counts with "0",
 
-MB5371_Whitsundays_Temp <- read.csv("MB5371_Whitsundays_Temp.csv", header = TRUE)
 MB5371_Whitsundays_Temp$Date <- as.POSIXct(MB5371_Whitsundays_Temp$Date,format="%d/%m/%Y",tz="UTC")
 
 ### Combine
