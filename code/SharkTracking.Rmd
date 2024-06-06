@@ -10,24 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-Check Git
-```{r}
-credentials::git_credential_ask()
-
-#this is a name space saying that git_sitrep belongs to usethis package
-#you are telling R which function to use from the package with the :: 
-
-usethis::git_sitrep()
-#reset the credentials and copy and paste your PAT 'ghp' code you have on Git
-
-#gitcreds::gitcreds_set()
-
-git remote add origin https://github.com/tkpritch/Animal-Tracking.git
-git branch -M main
-git push -u origin main
-```
-
-
 Load necessary packages
 ```{r}
 library(dplyr)
@@ -43,11 +25,11 @@ library(sp)
 library(leaflet)
 library(mapview)
 library(sf)
+library(tidyverse)
 library(ggspatial)
 library(sp)
 library(adehabitatHR)
 library(devtools)
-library(tidyverse)
 ```
 
 R-script code from Adam
@@ -77,6 +59,7 @@ MB5371_Detections$Date<- as.Date(MB5371_Detections$detection_datetime, "Australi
 
 MB5371_Detections <- MB5371_Detections |> dplyr::arrange(desc(detection_datetime))
 ```
+
 
 ```{r}
 ### Inspect the data, it is always a good idea to understand how your data is structured and what you are working with
@@ -373,4 +356,3 @@ MB5371_Tiger_Sharks_Sex <- MB5371_Tiger_Sharks_Sex  %>% group_by(animal_sex) %>%
 ### Include some of the results from this workshop and write a little discussion of what this might mean and why it could be important
 
 ```
-

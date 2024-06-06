@@ -34,9 +34,9 @@ getwd()
 
 ### Load in the data set and the metadata
 
-MB5371_Meta <- read.csv("../data/MB5371_Metadata.csv", header = TRUE)
-MB5371_Detections <- read.csv("../data/MB5371_Detections.csv", header = TRUE)
-MB5371_Receivers <- read.csv("../data/MB5371_Receivers.csv", header = TRUE)
+MB5371_Meta <- read.csv("C:/Users/Admin/OneDrive/Documents/MB5371_Tech2/Animal_Tracking/Animal-Tracking/data/MB5371_Metadata.csv",header=T)
+MB5371_Detections <- read.csv("C:/Users/Admin/OneDrive/Documents/MB5371_Tech2/Animal_Tracking/Animal-Tracking/data/MB5371_Detections.csv", header = TRUE)
+MB5371_Receivers <- read.csv("C:/Users/Admin/OneDrive/Documents/MB5371_Tech2/Animal_Tracking/Animal-Tracking/data/MB5371_Receivers.csv", header = TRUE)
 
 ### Let's adjust the date time column format to a better one to work with and change time zone to Australia as IMOS outputs in UTC. 
 ### Also, make a new column that only has the date. IMOS output only gives a combined Date - Time column but for many analyses
