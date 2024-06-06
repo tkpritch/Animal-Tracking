@@ -69,14 +69,16 @@ MB5371_Detections$detection_datetime <- as.POSIXct(MB5371_Detections$detection_d
 MB5371_Detections$detection_datetime <- as.POSIXct(MB5371_Detections$detection_datetime, format = "%Y-%m-%d %H:%M",tz="UTC")
 
 MB5371_Detections$detection_datetime <-
-  MB5371_Detections$detection_datetime %>% ymd_hms(tz="UTC") %>% with_tz(tzone="Australia/Brisbane")
+  MB5371_Detections$detection_datetime |> ymd_hms(tz="UTC") |> with_tz(tzone="Australia/Brisbane")
 
 MB5371_Detections$Date<- as.Date(MB5371_Detections$detection_datetime, "Australia/Brisbane")
                                                        
 ### Now arrange the dataframe from newest detection to oldest
 
-MB5371_Detections <- MB5371_Detections %>% dplyr::arrange(desc(detection_datetime))
+MB5371_Detections <- MB5371_Detections |> dplyr::arrange(desc(detection_datetime))
+```
 
+```{r}
 ### Inspect the data, it is always a good idea to understand how your data is structured and what you are working with
 
 head(MB5371_Detections)
@@ -88,7 +90,8 @@ head(MB5371_Receivers)
 ### Transform into spatial object
 
 MB5371_Receivers_SPATIAL <- MB5371_Receivers
-coordinates(MB5371_Receivers_SPATIAL) <- c("receiver_deployment_longitude", "receiver_deployment_latitude")
+coordinates(MB5371_Receivers_SPATIAL) <- c("receiver_deployment_longitude",
+                                           "receiver_deployment_latitude")
 
 ### Simple Plot
 
@@ -104,7 +107,8 @@ Receiver_Locations <- MB5371_Receivers %>%
 
 mapview(Receiver_Locations, xcol = "receiver_deployment_longitude", ycol = "receiver_deployment_latitude", crs = 4269, grid = FALSE)  
   
-### Let's see how many different sharks and different species are in the data set (Should be 4 !!), we can save those ID codes as an object for later
+### Let's see how many different sharks and different species are in the data set 
+###(Should be 4 !!), we can save those ID codes as an object for later
 
 Shark_IDs <- MB5371_Detections %>% distinct(transmitter_id)
 Species <- MB5371_Detections %>% distinct(species_common_name)
