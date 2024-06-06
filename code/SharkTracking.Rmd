@@ -30,6 +30,7 @@ library(ggspatial)
 library(sp)
 library(adehabitatHR)
 library(devtools)
+library(ggpubr)
 ```
 
 R-script code from Adam
@@ -310,9 +311,17 @@ Combined <- dplyr::left_join(MB5371_Whitsundays_Temp, MB5371_Tiger_Sharks_Day, b
 Combined[is.na(Combined)] <- 0
 
 ### Lets plot to see if there is a pattern
-
 ggplot(data=Combined, mapping = aes(x=Date, y=Count)) + geom_line()
 ggplot(data=Combined, mapping = aes(x=Date, y=degree_C)) + geom_line()
+
+#Another way to plot this with ggarrange instead
+Tiger<-ggplot(data=Combined,mapping=aes(x=Date,y=Count))+geom_line()
+Temp<-ggplot(data=Combined, mapping=aes(x=Date,y=degree_C))+geom_line()
+
+Temp_Tiger<- ggarrange(Tigers,Temp,
+                       labels=c("A","B"),
+                       ncol=1,nrow=2)
+
 
 ### But is temperature really a driver? What else could factor into it?
 
